@@ -1,3 +1,3 @@
-## Laudiolin
+# Laudiolin-Bot
 
-The music player as a discord bot
+Laudiolin's music playing functionality as a Discord bot.
