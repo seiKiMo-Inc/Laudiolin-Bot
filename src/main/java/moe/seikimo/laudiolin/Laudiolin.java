@@ -3,6 +3,7 @@ package moe.seikimo.laudiolin;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Getter;
+import moe.seikimo.laudiolin.commands.DeployCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -49,6 +50,7 @@ public final class Laudiolin {
             // Create a command handler instance.
             commandHandler = new ComplexCommandHandler(true)
                 .setPrefix(config.getPrefix());
+            Laudiolin.registerAllCommands(commandHandler);
             commandHandler.setJda(Laudiolin.getInstance());
 
             logger.info("Laudiolin is ready!");
@@ -57,5 +59,14 @@ public final class Laudiolin {
         } catch (SecurityException ignored) {
             logger.error("Failed to connect to the Discord API.");
         }
+    }
+
+    /**
+     * Registers all known commands.
+     * @param handler The command handler.
+     */
+    private static void registerAllCommands(ComplexCommandHandler handler) {
+        handler
+            .registerCommand(new DeployCommand());
     }
 }
