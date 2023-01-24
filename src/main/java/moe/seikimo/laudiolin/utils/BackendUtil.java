@@ -1,7 +1,9 @@
 package moe.seikimo.laudiolin.utils;
 
 import moe.seikimo.laudiolin.Laudiolin;
-import moe.seikimo.laudiolin.objects.LogEvent;
+import moe.seikimo.laudiolin.objects.LaudiolinSearchResults;
+import moe.seikimo.laudiolin.objects.LaudiolinTrackInfo;
+import moe.seikimo.laudiolin.objects.enums.LogEvent;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -31,5 +33,51 @@ public interface BackendUtil {
         }
 
         return false;
+    }
+
+    /**
+     * Fetches information about a track.
+     * @param trackId The ID of the track.
+     * @return The track information.
+     */
+    static LaudiolinTrackInfo fetch(String trackId) {
+        var request = new Request.Builder()
+            .url(ENDPOINT + "/fetch/" + trackId)
+            .build();
+
+        try (var response = CLIENT.newCall(request).execute()) {
+            var body = response.body();
+            if (body == null)
+                throw new IOException("No response body.");
+
+            return Laudiolin.getGson().fromJson(body.string(), LaudiolinTrackInfo.class);
+        } catch (IOException ignored) {
+            LogUtil.log(LogEvent.BACKEND_QUERY_ERROR);
+        }
+
+        return null;
+    }
+
+    /**
+     * Performs a search for the specified track.
+     * @param query The query to search for.
+     * @return The search results.
+     */
+    static LaudiolinSearchResults search(String query) {
+        var request = new Request.Builder()
+            .url(ENDPOINT + "/search/" + query + "?engine=All")
+            .build();
+
+        try (var response = CLIENT.newCall(request).execute()) {
+            var body = response.body();
+            if (body == null)
+                throw new IOException("No response body.");
+
+            return Laudiolin.getGson().fromJson(body.string(), LaudiolinSearchResults.class);
+        } catch (IOException ignored) {
+            LogUtil.log(LogEvent.BACKEND_PING);
+        }
+
+        return null;
     }
 }
