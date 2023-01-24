@@ -3,9 +3,15 @@ package moe.seikimo.laudiolin;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Getter;
+import moe.seikimo.laudiolin.audio.LaudiolinAudioManager;
 import moe.seikimo.laudiolin.commands.DeployCommand;
+import moe.seikimo.laudiolin.commands.JoinCommand;
+import moe.seikimo.laudiolin.commands.LeaveCommand;
+import moe.seikimo.laudiolin.commands.PlayCommand;
+import moe.seikimo.laudiolin.utils.BackendUtil;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import okhttp3.OkHttpClient;
@@ -43,8 +49,11 @@ public final class Laudiolin {
             // Create a bot instance.
             instance = JDABuilder.createDefault(config.getToken(),
                 EnumSet.allOf(GatewayIntent.class))
-                .enableCache(CacheFlag.VOICE_STATE)
                 .setHttpClient(Laudiolin.getHttp())
+                .enableCache(CacheFlag.VOICE_STATE)
+                .setStatus(OnlineStatus.ONLINE)
+                .setAutoReconnect(true)
+                .setIdle(false)
                 .build();
 
             // Create a command handler instance.
@@ -54,6 +63,14 @@ public final class Laudiolin {
             commandHandler.setJda(Laudiolin.getInstance());
 
             logger.info("Laudiolin is ready!");
+
+            // Ping the backend.
+            if (!BackendUtil.pingBackend()) {
+                logger.error("Unable to ping the Laudiolin backend.");
+            }
+
+            // Initialize the audio manager.
+            LaudiolinAudioManager.initialize();
         } catch (IOException ignored) {
             logger.error("Failed to load the configuration file.");
         } catch (SecurityException ignored) {
@@ -67,6 +84,9 @@ public final class Laudiolin {
      */
     private static void registerAllCommands(ComplexCommandHandler handler) {
         handler
-            .registerCommand(new DeployCommand());
+            .registerCommand(new DeployCommand())
+            .registerCommand(new LeaveCommand())
+            .registerCommand(new JoinCommand())
+            .registerCommand(new PlayCommand());
     }
 }
