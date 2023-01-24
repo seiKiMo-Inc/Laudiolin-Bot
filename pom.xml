@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>lol.arikatsu</groupId>
-    <artifactId>Laudiolin-bot</artifactId>
+    <groupId>moe.seikimo</groupId>
+    <artifactId>Laudiolin-Bot</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -15,16 +15,41 @@
     </properties>
 
     <dependencies>
+        <!-- Utility -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.5</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Discord -->
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>5.0.0-alpha.22</version>
+            <version>5.0.0-beta.3</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>tech.xigam</groupId>
             <artifactId>CCH</artifactId>
             <version>1.6.6</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
