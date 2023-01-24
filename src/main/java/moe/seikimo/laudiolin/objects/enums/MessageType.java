@@ -1,4 +1,4 @@
-package moe.seikimo.laudiolin.objects;
+package moe.seikimo.laudiolin.objects.enums;
 
 import lombok.Getter;
 

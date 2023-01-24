@@ -1,0 +1,16 @@
+package moe.seikimo.laudiolin.objects.enums;
+
+import lombok.AllArgsConstructor;
+
+/**
+ * Audio sources.
+ */
+@AllArgsConstructor
+public enum Source {
+    YOUTUBE("https://youtu.be/"),
+    SPOTIFY("https://open.spotify.com/track/"),
+    LAUDIOLIN("https://laudiolin.seikimo.moe/track/"),
+    UNKNOWN("");
+
+    final String baseUrl;
+}

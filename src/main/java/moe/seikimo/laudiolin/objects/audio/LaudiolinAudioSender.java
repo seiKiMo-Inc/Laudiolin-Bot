@@ -1,4 +1,4 @@
-package moe.seikimo.laudiolin.objects;
+package moe.seikimo.laudiolin.objects.audio;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.MutableAudioFrame;

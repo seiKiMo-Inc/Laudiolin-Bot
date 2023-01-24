@@ -1,4 +1,4 @@
-package moe.seikimo.laudiolin.objects;
+package moe.seikimo.laudiolin.objects.audio;
 
 import net.dv8tion.jda.api.hooks.VoiceDispatchInterceptor;
 import org.jetbrains.annotations.NotNull;

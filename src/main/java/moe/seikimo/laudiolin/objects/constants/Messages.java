@@ -1,5 +1,6 @@
-package moe.seikimo.laudiolin.objects;
+package moe.seikimo.laudiolin.objects.constants;
 
+import moe.seikimo.laudiolin.objects.enums.MessageType;
 import moe.seikimo.laudiolin.utils.MessageUtil;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
