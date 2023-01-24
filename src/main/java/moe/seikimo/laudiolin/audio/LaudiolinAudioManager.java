@@ -1,6 +1,5 @@
 package moe.seikimo.laudiolin.audio;
 
-import com.sedmelluq.discord.lavaplayer.container.MediaContainerRegistry;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
@@ -11,6 +10,7 @@ import com.sedmelluq.discord.lavaplayer.source.http.HttpAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.twitch.TwitchStreamAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.vimeo.VimeoAudioSourceManager;
 import lombok.Getter;
+import moe.seikimo.laudiolin.audio.source.LaudiolinSourceManager;
 import net.dv8tion.jda.api.entities.Guild;
 import tech.xigam.cch.utils.Interaction;
 
@@ -40,9 +40,11 @@ public final class LaudiolinAudioManager {
         this.audioPlayerManager.registerSourceManager(new TwitchStreamAudioSourceManager());
         this.audioPlayerManager.registerSourceManager(new BeamAudioSourceManager());
         this.audioPlayerManager.registerSourceManager(new GetyarnAudioSourceManager());
-        this.audioPlayerManager.registerSourceManager(new HttpAudioSourceManager(
-            MediaContainerRegistry.DEFAULT_REGISTRY));
+        this.audioPlayerManager.registerSourceManager(new HttpAudioSourceManager());
         AudioSourceManagers.registerLocalSource(this.audioPlayerManager);
+
+        // Add the Laudiolin source manager.
+        this.audioPlayerManager.registerSourceManager(new LaudiolinSourceManager());
     }
 
     /**
