@@ -17,6 +17,8 @@ public interface LogUtil {
         var logger = Laudiolin.getLogger();
 
         switch (event) {
+            default -> logger.error(event.getTemplate());
+
             case DEPLOY_COMMANDS -> {
                 var interaction = (Interaction) args[0];
                 logger.info(event.getTemplate().formatted(

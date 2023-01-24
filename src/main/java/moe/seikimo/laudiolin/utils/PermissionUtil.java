@@ -8,6 +8,20 @@ import tech.xigam.cch.utils.Interaction;
  */
 public interface PermissionUtil {
     /**
+     * Validates an interaction to see if it was sent in a server.
+     * @param interaction The message interaction.
+     * @return True if the command can continue executing.
+     */
+    static boolean isGuild(Interaction interaction) {
+        if (!interaction.isFromGuild()) {
+            interaction.reply(MessageUtil.NOT_SERVER, false);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Validates an interaction to see if the user is an administrator.
      * @param interaction The message interaction.
      * @return True if the command can continue executing.
