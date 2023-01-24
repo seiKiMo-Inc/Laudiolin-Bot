@@ -31,7 +31,7 @@ public final class LaudiolinConfig {
      * The color to use for embeds.
      * Should be a hex color code.
      */
-    private String color = "#2771d3";
+    private String color = "#cbe5ed";
 
     /**
      * A collection of bot administrators.
