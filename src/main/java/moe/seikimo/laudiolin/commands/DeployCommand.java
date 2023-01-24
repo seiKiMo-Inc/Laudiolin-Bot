@@ -1,6 +1,6 @@
 package moe.seikimo.laudiolin.commands;
 
-import moe.seikimo.laudiolin.objects.LogEvent;
+import moe.seikimo.laudiolin.objects.enums.LogEvent;
 import moe.seikimo.laudiolin.utils.LogUtil;
 import moe.seikimo.laudiolin.utils.MessageUtil;
 import moe.seikimo.laudiolin.utils.PermissionUtil;

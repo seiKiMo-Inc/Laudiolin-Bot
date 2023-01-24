@@ -1,6 +1,6 @@
 package moe.seikimo.laudiolin.commands;
 
-import moe.seikimo.laudiolin.objects.Messages;
+import moe.seikimo.laudiolin.objects.constants.Messages;
 import moe.seikimo.laudiolin.utils.AudioUtil;
 import moe.seikimo.laudiolin.utils.PermissionUtil;
 import moe.seikimo.laudiolin.utils.VoiceUtil;

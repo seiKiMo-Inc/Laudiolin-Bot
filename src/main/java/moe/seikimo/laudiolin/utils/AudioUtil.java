@@ -1,7 +1,7 @@
 package moe.seikimo.laudiolin.utils;
 
 import moe.seikimo.laudiolin.audio.LaudiolinAudioManager;
-import moe.seikimo.laudiolin.objects.Source;
+import moe.seikimo.laudiolin.objects.enums.Source;
 import tech.xigam.cch.utils.Interaction;
 
 /**
@@ -35,5 +35,25 @@ public interface AudioUtil {
             return Source.LAUDIOLIN;
 
         return Source.UNKNOWN;
+    }
+
+    /**
+     * Attempts to pull a YouTube video ID.
+     * @param query The query.
+     * @return The video ID.
+     */
+    static String pullYouTubeId(String query) {
+        if (query.contains("youtu.be"))
+            return query.split("youtu.be/")[1];
+        return query.split("v=")[1];
+    }
+
+    /**
+     * Attempts to pull a generic track ID.
+     * @param query The query.
+     * @return The track ID.
+     */
+    static String pullGenericId(String query) {
+        return query.split("/track/")[1];
     }
 }

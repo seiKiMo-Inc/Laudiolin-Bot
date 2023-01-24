@@ -1,7 +1,7 @@
 package moe.seikimo.laudiolin.utils;
 
 import moe.seikimo.laudiolin.Laudiolin;
-import moe.seikimo.laudiolin.objects.LogEvent;
+import moe.seikimo.laudiolin.objects.enums.LogEvent;
 import tech.xigam.cch.utils.Interaction;
 
 /**

@@ -3,7 +3,7 @@ package moe.seikimo.laudiolin.audio;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import lombok.Getter;
-import moe.seikimo.laudiolin.objects.LaudiolinAudioSender;
+import moe.seikimo.laudiolin.objects.audio.LaudiolinAudioSender;
 
 /**
  * Manages audio playback for one guild.
