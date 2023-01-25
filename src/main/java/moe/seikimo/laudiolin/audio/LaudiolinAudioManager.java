@@ -34,6 +34,9 @@ public final class LaudiolinAudioManager {
     private final Map<String, GuildAudioManager> audioManagers = new HashMap<>();
 
     private LaudiolinAudioManager() {
+        // Add the Laudiolin source manager.
+        this.audioPlayerManager.registerSourceManager(new LaudiolinSourceManager());
+
         // Add default sources to the audio player manager.
         this.audioPlayerManager.registerSourceManager(new BandcampAudioSourceManager());
         this.audioPlayerManager.registerSourceManager(new VimeoAudioSourceManager());
@@ -42,9 +45,6 @@ public final class LaudiolinAudioManager {
         this.audioPlayerManager.registerSourceManager(new GetyarnAudioSourceManager());
         this.audioPlayerManager.registerSourceManager(new HttpAudioSourceManager());
         AudioSourceManagers.registerLocalSource(this.audioPlayerManager);
-
-        // Add the Laudiolin source manager.
-        this.audioPlayerManager.registerSourceManager(new LaudiolinSourceManager());
     }
 
     /**
