@@ -15,7 +15,7 @@ public final class SkipCommand extends Command {
         "Skipped the current track.", MessageType.INFO);
 
     public SkipCommand() {
-        super("join", "Join your voice channel.");
+        super("skip", "Skip the current track.");
     }
 
     @Override
