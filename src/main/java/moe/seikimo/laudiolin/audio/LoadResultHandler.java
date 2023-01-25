@@ -6,6 +6,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import moe.seikimo.laudiolin.objects.enums.MessageType;
 import moe.seikimo.laudiolin.objects.constants.Messages;
+import moe.seikimo.laudiolin.utils.LogUtil;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import tech.xigam.cch.utils.Interaction;
@@ -56,6 +57,7 @@ public final class LoadResultHandler implements AudioLoadResultHandler {
 
     @Override
     public void loadFailed(FriendlyException e) {
+        LogUtil.log(e);
         this.interaction.reply(Messages.UNABLE_TO_PLAY, false);
     }
 }

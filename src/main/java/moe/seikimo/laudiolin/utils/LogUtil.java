@@ -27,4 +27,16 @@ public interface LogUtil {
             }
         }
     }
+
+    /**
+     * Logs the object to the console & webhook.
+     * @param throwable The throwable to log.
+     */
+    static void log(Throwable throwable) {
+        // Log the issue to the console.
+        Laudiolin.getLogger().error(throwable.getMessage(), throwable);
+
+        // Log the issue to a webhook.
+        // TODO: Log the issue to a webhook.
+    }
 }

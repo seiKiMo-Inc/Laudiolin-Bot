@@ -16,6 +16,12 @@ public final class LaudiolinConfig {
     private String token = "";
 
     /**
+     * The URL to a Discord webhook to send error messages to.
+     * This should be a Discord webhook URL.
+     */
+    private String errorWebhook = "";
+
+    /**
      * This is the HTTP endpoint the bot will use.
      * Should be pointed to a Laudiolin Backend.
      */
