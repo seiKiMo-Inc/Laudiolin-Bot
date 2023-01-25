@@ -26,4 +26,12 @@ public final class GuildAudioManager {
     public LaudiolinAudioSender newAudioSender() {
         return new LaudiolinAudioSender(this.audioPlayer);
     }
+
+    /**
+     * Checks if the player is playing anything.
+     * @return True if the player is playing.
+     */
+    public boolean isPlaying() {
+        return this.audioPlayer.getPlayingTrack() != null;
+    }
 }

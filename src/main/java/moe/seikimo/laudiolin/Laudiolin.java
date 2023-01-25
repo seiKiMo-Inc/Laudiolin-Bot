@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Getter;
 import moe.seikimo.laudiolin.audio.LaudiolinAudioManager;
-import moe.seikimo.laudiolin.commands.DeployCommand;
-import moe.seikimo.laudiolin.commands.JoinCommand;
-import moe.seikimo.laudiolin.commands.LeaveCommand;
-import moe.seikimo.laudiolin.commands.PlayCommand;
+import moe.seikimo.laudiolin.commands.*;
 import moe.seikimo.laudiolin.utils.BackendUtil;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -49,7 +46,6 @@ public final class Laudiolin {
             // Create a bot instance.
             instance = JDABuilder.createDefault(config.getToken(),
                 EnumSet.allOf(GatewayIntent.class))
-                .setHttpClient(Laudiolin.getHttp())
                 .enableCache(CacheFlag.VOICE_STATE)
                 .setStatus(OnlineStatus.ONLINE)
                 .setAutoReconnect(true)
@@ -87,6 +83,7 @@ public final class Laudiolin {
             .registerCommand(new DeployCommand())
             .registerCommand(new LeaveCommand())
             .registerCommand(new JoinCommand())
-            .registerCommand(new PlayCommand());
+            .registerCommand(new PlayCommand())
+            .registerCommand(new SkipCommand());
     }
 }

@@ -19,4 +19,7 @@ public interface Messages {
         "Unable to find results for that query.", MessageType.ERROR);
     MessageEmbed UNABLE_TO_PLAY = MessageUtil.generic(
         "Unable to play the requested track.", MessageType.ERROR);
+
+    MessageEmbed NOT_PLAYING = MessageUtil.generic(
+        "Nothing is currently playing.", MessageType.ERROR);
 }
