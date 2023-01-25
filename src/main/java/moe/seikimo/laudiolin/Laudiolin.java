@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import lombok.Getter;
 import moe.seikimo.laudiolin.audio.LaudiolinAudioManager;
 import moe.seikimo.laudiolin.commands.*;
+import moe.seikimo.laudiolin.objects.constants.Messages;
 import moe.seikimo.laudiolin.utils.BackendUtil;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -46,7 +47,9 @@ public final class Laudiolin {
             // Create a bot instance.
             instance = JDABuilder.createDefault(config.getToken(),
                 EnumSet.allOf(GatewayIntent.class))
+                .setHttpClient(Laudiolin.getHttp())
                 .enableCache(CacheFlag.VOICE_STATE)
+                .setActivity(Messages.ACTIVITY)
                 .setStatus(OnlineStatus.ONLINE)
                 .setAutoReconnect(true)
                 .setIdle(false)
@@ -81,9 +84,14 @@ public final class Laudiolin {
     private static void registerAllCommands(ComplexCommandHandler handler) {
         handler
             .registerCommand(new DeployCommand())
+            .registerCommand(new VolumeCommand())
             .registerCommand(new LeaveCommand())
             .registerCommand(new JoinCommand())
             .registerCommand(new PlayCommand())
             .registerCommand(new SkipCommand());
+
+        // Set the handler for argument errors.
+        handler.onArgumentError = interaction ->
+            interaction.reply(Messages.NO_ARGUMENTS, false);
     }
 }

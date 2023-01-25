@@ -2,12 +2,18 @@ package moe.seikimo.laudiolin.objects.constants;
 
 import moe.seikimo.laudiolin.objects.enums.MessageType;
 import moe.seikimo.laudiolin.utils.MessageUtil;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
 /**
  * Pre-made messages.
  */
 public interface Messages {
+    Activity ACTIVITY = Activity.listening("amazing music");
+
+    MessageEmbed NO_ARGUMENTS = MessageUtil.generic(
+        "You must provide arguments for this command.", MessageType.ERROR);
+
     MessageEmbed USER_NOT_IN_VOICE = MessageUtil.generic(
         "You are not in a voice channel.", MessageType.ERROR);
     MessageEmbed BOT_NOT_IN_VOICE = MessageUtil.generic(
