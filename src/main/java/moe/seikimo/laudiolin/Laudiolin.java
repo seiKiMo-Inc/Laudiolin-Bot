@@ -6,11 +6,14 @@ import lombok.Getter;
 import moe.seikimo.laudiolin.audio.LaudiolinAudioManager;
 import moe.seikimo.laudiolin.commands.*;
 import moe.seikimo.laudiolin.objects.constants.Messages;
+import moe.seikimo.laudiolin.social.UserListener;
 import moe.seikimo.laudiolin.utils.BackendUtil;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.ChunkingFilter;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import okhttp3.OkHttpClient;
 import org.slf4j.Logger;
@@ -19,6 +22,7 @@ import tech.xigam.cch.ComplexCommandHandler;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.EnumSet;
 
 public final class Laudiolin {
@@ -31,6 +35,7 @@ public final class Laudiolin {
 
     @Getter private static ComplexCommandHandler commandHandler;
     @Getter private static LaudiolinConfig config;
+    @Getter private static LaudiolinClient client;
     @Getter private static JDA instance;
 
     public static void main(String[] args) {
@@ -47,8 +52,16 @@ public final class Laudiolin {
             // Create a bot instance.
             instance = JDABuilder.createDefault(config.getToken(),
                 EnumSet.allOf(GatewayIntent.class))
+                .enableCache(
+                    CacheFlag.VOICE_STATE,
+                    CacheFlag.ONLINE_STATUS)
+                .addEventListeners(
+                    new UserListener())
+                .setMemberCachePolicy(
+                    MemberCachePolicy.ALL)
+                .setChunkingFilter(
+                    ChunkingFilter.ALL)
                 .setHttpClient(Laudiolin.getHttp())
-                .enableCache(CacheFlag.VOICE_STATE)
                 .setActivity(Messages.ACTIVITY)
                 .setStatus(OnlineStatus.ONLINE)
                 .setAutoReconnect(true)
@@ -63,9 +76,18 @@ public final class Laudiolin {
 
             logger.info("Laudiolin is ready!");
 
+            // Create a Laudiolin client.
+            client = new LaudiolinClient(
+                config.isEncrypted(),
+                config.getEndpoint().split("://")[1]
+            );
+
             // Ping the backend.
             if (!BackendUtil.pingBackend()) {
                 logger.error("Unable to ping the Laudiolin backend.");
+            } else {
+                // Connect to the backend.
+                client.connect();
             }
 
             // Initialize the audio manager.
@@ -74,6 +96,8 @@ public final class Laudiolin {
             logger.error("Failed to load the configuration file.");
         } catch (SecurityException ignored) {
             logger.error("Failed to connect to the Discord API.");
+        } catch (URISyntaxException ignored) {
+            logger.error("Invalid gateway set.");
         }
     }
 

@@ -44,4 +44,10 @@ public final class LaudiolinConfig {
      * Should be a list of Discord user IDs.
      */
     private List<String> admins = List.of("");
+
+    /**
+     * The type of backend connection.
+     * Should be true for 'wss' or false for 'ws'.
+     */
+    private boolean encrypted = false;
 }
