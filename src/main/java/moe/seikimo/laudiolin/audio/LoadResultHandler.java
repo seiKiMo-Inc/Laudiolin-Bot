@@ -14,6 +14,7 @@ import tech.xigam.cch.utils.Interaction;
 public final class LoadResultHandler implements AudioLoadResultHandler {
     private final GuildAudioManager manager;
     private final Interaction interaction;
+    private final String query;
 
     private final Member member;
 
@@ -22,6 +23,7 @@ public final class LoadResultHandler implements AudioLoadResultHandler {
     ) {
         this.manager = manager;
         this.interaction = interaction;
+        this.query = query;
 
         this.member = interaction.getMember();
     }
@@ -65,7 +67,7 @@ public final class LoadResultHandler implements AudioLoadResultHandler {
         // Reply to the interaction.
         this.interaction.reply(new EmbedBuilder()
             .setColor(MessageType.INFO.getColor())
-            .setDescription(String.format("**Queued Playlist:** %s", title))
+            .setDescription(String.format("**Queued Playlist:** [%s](%s)", title, this.query))
             .build(), false);
     }
 
