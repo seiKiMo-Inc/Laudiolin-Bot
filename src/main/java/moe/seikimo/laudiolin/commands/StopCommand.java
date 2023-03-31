@@ -50,13 +50,8 @@ public final class StopCommand extends Command {
             return;
         }
 
-        // Clear the queue.
-        audioManager.getScheduler().clear();
-        audioManager.getAudioPlayer().destroy();
-        // Remove the audio manager from the map.
-        LaudiolinAudioManager.getInstance().removeAudioManager(guild);
-        // Disconnect from the voice channel.
-        VoiceUtil.disconnect(interaction);
+        // Stop the audio manager.
+        audioManager.stop();
 
         interaction.reply(STOPPED_QUEUE, false);
     }

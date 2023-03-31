@@ -6,6 +6,7 @@ import lombok.Getter;
 import moe.seikimo.laudiolin.audio.LaudiolinAudioManager;
 import moe.seikimo.laudiolin.commands.*;
 import moe.seikimo.laudiolin.objects.constants.Messages;
+import moe.seikimo.laudiolin.social.AudioListener;
 import moe.seikimo.laudiolin.social.UserListener;
 import moe.seikimo.laudiolin.utils.BackendUtil;
 import net.dv8tion.jda.api.JDA;
@@ -56,7 +57,8 @@ public final class Laudiolin {
                     CacheFlag.VOICE_STATE,
                     CacheFlag.ONLINE_STATUS)
                 .addEventListeners(
-                    new UserListener())
+                    new UserListener(),
+                    new AudioListener())
                 .setMemberCachePolicy(
                     MemberCachePolicy.ALL)
                 .setChunkingFilter(

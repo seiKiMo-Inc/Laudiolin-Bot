@@ -2,11 +2,13 @@ package moe.seikimo.laudiolin.objects.audio;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.MutableAudioFrame;
+import lombok.Getter;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
+@Getter
 public final class LaudiolinAudioSender implements AudioSendHandler {
     private final AudioPlayer player;
     private final ByteBuffer buffer;
@@ -17,7 +19,7 @@ public final class LaudiolinAudioSender implements AudioSendHandler {
         this.buffer = ByteBuffer.allocate(1024);
         this.frame = new MutableAudioFrame();
 
-        this.frame.setBuffer(buffer);
+        this.frame.setBuffer(this.buffer);
     }
 
     @Override
@@ -27,20 +29,12 @@ public final class LaudiolinAudioSender implements AudioSendHandler {
 
     @Override
     public ByteBuffer provide20MsAudio() {
-        ((Buffer) buffer).flip();
-        return buffer;
+        ((Buffer) this.buffer).flip();
+        return this.buffer;
     }
 
     @Override
     public boolean isOpus() {
         return true;
-    }
-
-    public AudioPlayer getPlayer() {
-        return this.player;
-    }
-
-    public MutableAudioFrame getFrame() {
-        return this.frame;
     }
 }

@@ -44,4 +44,21 @@ public final class GuildAudioManager {
         return this.scheduler.getQueue().size() > 0 ||
             this.isPlaying();
     }
+
+    /**
+     * Stop the player.
+     */
+    public void stop() {
+        // Stop the player.
+        this.audioPlayer.destroy();
+        // Clear the queue.
+        this.scheduler.getQueue().clear();
+
+        // Remove this audio manager.
+        var guild = LaudiolinAudioManager.getInstance()
+            .removeAudioManager(this);
+        // Close the audio connection.
+        if (guild != null)
+            guild.getAudioManager().closeAudioConnection();
+    }
 }

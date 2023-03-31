@@ -12,6 +12,7 @@ import com.sedmelluq.discord.lavaplayer.source.vimeo.VimeoAudioSourceManager;
 import lombok.Getter;
 import moe.seikimo.laudiolin.audio.source.LaudiolinSourceManager;
 import net.dv8tion.jda.api.entities.Guild;
+import org.jetbrains.annotations.Nullable;
 import tech.xigam.cch.utils.Interaction;
 
 import java.util.HashMap;
@@ -72,10 +73,23 @@ public final class LaudiolinAudioManager {
 
     /**
      * Removes an audio manager from the cache.
-     * @param guild The guild to remove the audio manager for.
+     *
+     * @param manager The manager to remove.
+     * @return The guild the manager was removed from.
      */
-    public void removeAudioManager(Guild guild) {
-        this.audioManagers.remove(guild);
+    @Nullable
+    public Guild removeAudioManager(GuildAudioManager manager) {
+        // Get the guild for the manager.
+        var guild = this.audioManagers.entrySet().stream()
+            .filter(entry -> entry.getValue().equals(manager))
+            .map(Map.Entry::getKey)
+            .findFirst().orElse(null);
+
+        // Remove the manager.
+        if (guild != null)
+            this.audioManagers.remove(guild);
+
+        return guild;
     }
 
     /**
