@@ -29,7 +29,7 @@ public final class VolumeCommand extends Command implements Arguments {
         var guild = interaction.getGuild(); assert guild != null;
         var member = interaction.getMember(); assert member != null;
         var voiceState = member.getVoiceState(); assert voiceState != null;
-        var volume = interaction.getArgument("volume", 100, Integer.class);
+        var volume = interaction.getArgument("volume", 100L, Long.class);
 
         // Check if the member is in a voice channel.
         if (!voiceState.inAudioChannel()) {
@@ -48,7 +48,7 @@ public final class VolumeCommand extends Command implements Arguments {
             .getInstance().getAudioManager(guild);
 
         // Set the volume of the player.
-        audioManager.getAudioPlayer().setVolume(volume);
+        audioManager.getAudioPlayer().setVolume(volume.intValue());
 
         var embed = new EmbedBuilder()
             .setColor(MessageType.INFO.getColor())
