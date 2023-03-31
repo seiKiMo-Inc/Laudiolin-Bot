@@ -119,6 +119,7 @@ public final class LaudiolinSourceManager implements AudioSourceManager {
             query = query.substring(1, query.length() - 1);
         // Find the source.
         var source = AudioUtil.identify(query);
+        if (source == Source.UNKNOWN) return null;
 
         return switch (AudioUtil.identifyType(query)) {
             case TRACK -> this.loadTrack(source, query, manager, reference);
