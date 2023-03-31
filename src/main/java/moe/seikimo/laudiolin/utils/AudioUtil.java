@@ -45,8 +45,12 @@ public interface AudioUtil {
      * @return The audio type.
      */
     static Audio identifyType(String query) {
-        return query.contains("playlist") ?
-            Audio.PLAYLIST : Audio.TRACK;
+        if (query.contains("playlist"))
+            return Audio.PLAYLIST;
+        if (query.contains("&list="))
+            return Audio.PLAYLIST;
+
+        return Audio.TRACK;
     }
 
     /**

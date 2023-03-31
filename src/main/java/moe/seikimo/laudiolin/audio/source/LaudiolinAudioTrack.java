@@ -33,7 +33,7 @@ public final class LaudiolinAudioTrack extends DelegatedAudioTrack {
 
     @Override
     public void process(LocalAudioTrackExecutor executor) throws Exception {
-        processDelegate((InternalAudioTrack) this.httpAudioSource.loadItem(null,
+        this.processDelegate((InternalAudioTrack) this.httpAudioSource.loadItem(null,
             new AudioReference(this.createUrl(), null)), executor);
     }
 
