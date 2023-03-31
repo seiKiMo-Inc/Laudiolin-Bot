@@ -28,10 +28,19 @@ public final class LaudiolinAudioManager {
      */
     public static void initialize() {
         instance = new LaudiolinAudioManager();
+
+        // Create a shutdown hook.
+        Runtime.getRuntime().addShutdownHook(new Thread(() ->
+            instance.audioManagers.forEach((guild, audioManager) -> {
+                // Destroy the audio player.
+                audioManager.getAudioPlayer().destroy();
+                // Close the audio connection.
+                guild.getAudioManager().closeAudioConnection();
+        })));
     }
 
     private final AudioPlayerManager audioPlayerManager = new DefaultAudioPlayerManager();
-    private final Map<String, GuildAudioManager> audioManagers = new HashMap<>();
+    private final Map<Guild, GuildAudioManager> audioManagers = new HashMap<>();
 
     private LaudiolinAudioManager() {
         // Add the Laudiolin source manager.
@@ -54,9 +63,9 @@ public final class LaudiolinAudioManager {
      * @return A {@link GuildAudioManager} instance.
      */
     public GuildAudioManager getAudioManager(Guild guild) {
-        return this.audioManagers.computeIfAbsent(guild.getId(), id -> {
+        return this.audioManagers.computeIfAbsent(guild, g -> {
             var audioManager = new GuildAudioManager(this.audioPlayerManager);
-            guild.getAudioManager().setSendingHandler(audioManager.newAudioSender());
+            g.getAudioManager().setSendingHandler(audioManager.newAudioSender());
             return audioManager;
         });
     }
@@ -66,7 +75,7 @@ public final class LaudiolinAudioManager {
      * @param guild The guild to remove the audio manager for.
      */
     public void removeAudioManager(Guild guild) {
-        this.audioManagers.remove(guild.getId());
+        this.audioManagers.remove(guild);
     }
 
     /**
