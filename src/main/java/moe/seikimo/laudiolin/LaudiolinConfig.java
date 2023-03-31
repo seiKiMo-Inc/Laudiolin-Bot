@@ -50,4 +50,16 @@ public final class LaudiolinConfig {
      * Should be true for 'wss' or false for 'ws'.
      */
     private boolean encrypted = false;
+
+    /**
+     * The Spotify client ID to use.
+     * This should be a Spotify client ID.
+     */
+    private String spotifyClientId = "";
+
+    /**
+     * The Spotify client secret to use.
+     * This should be a Spotify client secret.
+     */
+    private String spotifyClientSecret = "";
 }

@@ -1,6 +1,7 @@
 package moe.seikimo.laudiolin.utils;
 
 import moe.seikimo.laudiolin.Laudiolin;
+import moe.seikimo.laudiolin.objects.LaudiolinPlaylist;
 import moe.seikimo.laudiolin.objects.LaudiolinSearchResults;
 import moe.seikimo.laudiolin.objects.LaudiolinTrackInfo;
 import moe.seikimo.laudiolin.objects.enums.LogEvent;
@@ -51,6 +52,30 @@ public interface BackendUtil {
                 throw new IOException("No response body.");
 
             return Laudiolin.getGson().fromJson(body.string(), LaudiolinTrackInfo.class);
+        } catch (IOException ignored) {
+            LogUtil.log(LogEvent.BACKEND_QUERY_ERROR);
+        }
+
+        return null;
+    }
+
+    /**
+     * Fetches a Laudiolin playlist.
+     *
+     * @param playlistId The ID of the playlist.
+     * @return The playlist.
+     */
+    static LaudiolinPlaylist fetchPlaylist(String playlistId) {
+        var request = new Request.Builder()
+            .url(ENDPOINT + "/playlist/" + playlistId)
+            .build();
+
+        try (var response = CLIENT.newCall(request).execute()) {
+            var body = response.body();
+            if (body == null)
+                throw new IOException("No response body.");
+
+            return Laudiolin.getGson().fromJson(body.string(), LaudiolinPlaylist.class);
         } catch (IOException ignored) {
             LogUtil.log(LogEvent.BACKEND_QUERY_ERROR);
         }

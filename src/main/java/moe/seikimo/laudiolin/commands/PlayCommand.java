@@ -15,7 +15,7 @@ import java.util.List;
 
 public final class PlayCommand extends Command implements Arguments {
     public PlayCommand() {
-        super("play", "Play a song.");
+        super("play", "Play a song or playlist.");
     }
 
     @Override

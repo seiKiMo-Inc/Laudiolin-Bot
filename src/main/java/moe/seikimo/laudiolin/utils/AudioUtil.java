@@ -1,6 +1,7 @@
 package moe.seikimo.laudiolin.utils;
 
 import moe.seikimo.laudiolin.audio.LaudiolinAudioManager;
+import moe.seikimo.laudiolin.objects.enums.Audio;
 import moe.seikimo.laudiolin.objects.enums.Source;
 import tech.xigam.cch.utils.Interaction;
 
@@ -19,7 +20,7 @@ public interface AudioUtil {
     }
 
     /**
-     * Identifies a query from a source.
+     * Identifies a source from a query.
      * @param query The query.
      * @return The source.
      */
@@ -35,6 +36,17 @@ public interface AudioUtil {
             return Source.LAUDIOLIN;
 
         return Source.UNKNOWN;
+    }
+
+    /**
+     * Identifies the type of audio from a query.
+     *
+     * @param query The query.
+     * @return The audio type.
+     */
+    static Audio identifyType(String query) {
+        return query.contains("playlist") ?
+            Audio.PLAYLIST : Audio.TRACK;
     }
 
     /**
@@ -55,5 +67,15 @@ public interface AudioUtil {
      */
     static String pullGenericId(String query) {
         return query.split("/track/")[1];
+    }
+
+    /**
+     * Attempts to pull a generic playlist ID.
+     *
+     * @param query The query.
+     * @return The playlist ID.
+     */
+    static String pullPlaylistId(String query) {
+        return query.split("/playlist/")[1];
     }
 }
