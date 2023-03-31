@@ -112,7 +112,8 @@ public final class Laudiolin {
             .registerCommand(new LeaveCommand())
             .registerCommand(new JoinCommand())
             .registerCommand(new PlayCommand())
-            .registerCommand(new SkipCommand());
+            .registerCommand(new SkipCommand())
+            .registerCommand(new StopCommand());
 
         // Set the handler for argument errors.
         handler.onArgumentError = interaction ->

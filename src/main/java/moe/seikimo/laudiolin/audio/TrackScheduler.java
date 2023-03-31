@@ -5,6 +5,7 @@ import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -16,8 +17,15 @@ import java.util.concurrent.LinkedBlockingQueue;
 public final class TrackScheduler extends AudioEventAdapter {
     private final AudioPlayer audioPlayer;
 
-    private final BlockingQueue<AudioTrack> queue =
+    @Getter private final BlockingQueue<AudioTrack> queue =
         new LinkedBlockingQueue<>();
+
+    /**
+     * Clears the queue.
+     */
+    public void clear() {
+        this.queue.clear();
+    }
 
     /**
      * Queues a track to play.

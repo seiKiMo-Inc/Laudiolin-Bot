@@ -28,4 +28,6 @@ public interface Messages {
 
     MessageEmbed NOT_PLAYING = MessageUtil.generic(
         "Nothing is currently playing.", MessageType.ERROR);
+    MessageEmbed QUEUE_EMPTY = MessageUtil.generic(
+        "The queue is empty.", MessageType.ERROR);
 }

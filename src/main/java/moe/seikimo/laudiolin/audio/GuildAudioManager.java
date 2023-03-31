@@ -34,4 +34,14 @@ public final class GuildAudioManager {
     public boolean isPlaying() {
         return this.audioPlayer.getPlayingTrack() != null;
     }
+
+    /**
+     * Checks if the player has a queue.
+     *
+     * @return True if the player has a queue.
+     */
+    public boolean hasQueue() {
+        return this.scheduler.getQueue().size() > 0 ||
+            this.isPlaying();
+    }
 }
