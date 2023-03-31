@@ -22,7 +22,5 @@ public final class UserListener extends ListenerAdapter {
             .userData(BasicUser.from(event.getUser()))
             .status(UserState.from(event.getMember()))
             .build());
-        // Log the user update message.
-        Laudiolin.getLogger().info("Updated user " + event.getUser().getName() + "#" + event.getUser().getDiscriminator() + ".");
     }
 }
