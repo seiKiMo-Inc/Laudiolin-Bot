@@ -2,6 +2,7 @@ package moe.seikimo.laudiolin.audio;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
+import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import lombok.AllArgsConstructor;
@@ -40,6 +41,16 @@ public final class TrackScheduler extends AudioEventAdapter {
             // Queue the track.
             this.queue.add(track);
         }
+    }
+
+    /**
+     * Queues a playlist to play.
+     *
+     * @param playlist The playlist to queue.
+     */
+    public void queue(AudioPlaylist playlist) {
+        // Queue the tracks.
+        playlist.getTracks().forEach(this::queue);
     }
 
     /**

@@ -47,7 +47,26 @@ public final class LoadResultHandler implements AudioLoadResultHandler {
 
     @Override
     public void playlistLoaded(AudioPlaylist audioPlaylist) {
+        // Check if the playlist was a search result.
+        if (audioPlaylist.isSearchResult()) {
+            this.trackLoaded(audioPlaylist.getTracks().stream()
+                .findFirst().orElseThrow());
+            return;
+        }
 
+        this.manager.getScheduler().queue(audioPlaylist);
+
+        // Process the loaded playlist.
+        var fullTitle = audioPlaylist.getName();
+        var title = fullTitle.length() > 50
+            ? fullTitle.substring(0, 50) + "..."
+            : fullTitle;
+
+        // Reply to the interaction.
+        this.interaction.reply(new EmbedBuilder()
+            .setColor(MessageType.INFO.getColor())
+            .setDescription(String.format("**Queued Playlist:** %s", title))
+            .build(), false);
     }
 
     @Override
@@ -56,8 +75,8 @@ public final class LoadResultHandler implements AudioLoadResultHandler {
     }
 
     @Override
-    public void loadFailed(FriendlyException e) {
-        LogUtil.log(e);
+    public void loadFailed(FriendlyException exception) {
+        LogUtil.log(exception);
         this.interaction.reply(Messages.UNABLE_TO_PLAY, false);
     }
 }
